@@ -20,19 +20,27 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#pragma once
+#include <veins/modules/application/traci/TraCIMinorRSU11p.h>
+#include "veins/modules/application/traci/TraCIDemo11pMessage_m.h"
 
-#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
+using namespace veins;
 
-namespace veins {
+Define_Module(veins::TraCIMinorRSU11p);
 
-/**
- * Small RSU Demo using 11p
- */
-class VEINS_API TraCIDemoRSU11p : public DemoBaseApplLayer {
-protected:
-    void onWSM(BaseFrame1609_4* wsm) override;
-    void onWSA(DemoServiceAdvertisment* wsa) override;
-};
+void TraCIMinorRSU11p::onWSA(DemoServiceAdvertisment* wsa)
+{
+    // if this RSU receives a WSA for service 42, it will tune to the chan
+    if (wsa->getPsid() == 42) {
+        mac->changeServiceChannel(static_cast<Channel>(wsa->getTargetChannel()));
+    }
+}
 
-} // namespace veins
+void TraCIMinorRSU11p::onWSM(BaseFrame1609_4* frame)
+{
+    TraCIDemo11pMessage* wsm = check_and_cast<TraCIDemo11pMessage*>(frame);
+
+    std::system("notify-send \"RSU Update\" \"RSU ko message mila\"");
+
+    // this rsu repeats the received traffic update in 2 seconds plus some random delay
+    sendDelayedDown(wsm->dup(), 2 + uniform(0.01, 0.2));
+}

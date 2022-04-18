@@ -23,8 +23,8 @@
 package org.car2x.veins.modules.application.traci;
 import org.car2x.veins.modules.application.ieee80211p.DemoBaseApplLayer;
 
-simple TraCIDemo11p extends DemoBaseApplLayer
+simple TraCIMinor11p extends DemoBaseApplLayer
 {
-    @class(veins::TraCIDemo11p);
+    @class(veins::TraCIMinor11p);
     @display("i=block/app2");
 }

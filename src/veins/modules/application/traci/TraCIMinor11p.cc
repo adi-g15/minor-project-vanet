@@ -20,17 +20,16 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#include "veins/modules/application/traci/TraCIDemo11p.h"
-
+#include <veins/modules/application/traci/TraCIMinor11p.h>
 #include "veins/modules/application/traci/TraCIDemo11pMessage_m.h"
 
 #include <cstdlib>
 
 using namespace veins;
 
-Define_Module(veins::TraCIDemo11p);
+Define_Module(veins::TraCIMinor11p);
 
-void TraCIDemo11p::initialize(int stage)
+void TraCIMinor11p::initialize(int stage)
 {
     DemoBaseApplLayer::initialize(stage);
     if (stage == 0) {
@@ -40,7 +39,7 @@ void TraCIDemo11p::initialize(int stage)
     }
 }
 
-void TraCIDemo11p::onWSA(DemoServiceAdvertisment* wsa)
+void TraCIMinor11p::onWSA(DemoServiceAdvertisment* wsa)
 {
     if (currentSubscribedServiceId == -1) {
         mac->changeServiceChannel(static_cast<Channel>(wsa->getTargetChannel()));
@@ -52,7 +51,7 @@ void TraCIDemo11p::onWSA(DemoServiceAdvertisment* wsa)
     }
 }
 
-void TraCIDemo11p::onWSM(BaseFrame1609_4* frame)
+void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
 {
     TraCIDemo11pMessage* wsm = check_and_cast<TraCIDemo11pMessage*>(frame);
 
@@ -72,7 +71,7 @@ void TraCIDemo11p::onWSM(BaseFrame1609_4* frame)
     }
 }
 
-void TraCIDemo11p::handleSelfMsg(cMessage* msg)
+void TraCIMinor11p::handleSelfMsg(cMessage* msg)
 {
     if (TraCIDemo11pMessage* wsm = dynamic_cast<TraCIDemo11pMessage*>(msg)) {
         // send this message on the service channel until the counter is 3 or higher.
@@ -93,7 +92,7 @@ void TraCIDemo11p::handleSelfMsg(cMessage* msg)
     }
 }
 
-void TraCIDemo11p::handlePositionUpdate(cObject* obj)
+void TraCIMinor11p::handlePositionUpdate(cObject* obj)
 {
     DemoBaseApplLayer::handlePositionUpdate(obj);
 
