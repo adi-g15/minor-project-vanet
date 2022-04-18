@@ -24,6 +24,8 @@
 
 #include "veins/modules/application/traci/TraCIDemo11pMessage_m.h"
 
+#include <cstdlib>
+
 using namespace veins;
 
 Define_Module(veins::TraCIDemo11p);
@@ -55,6 +57,10 @@ void TraCIDemo11p::onWSM(BaseFrame1609_4* frame)
     TraCIDemo11pMessage* wsm = check_and_cast<TraCIDemo11pMessage*>(frame);
 
     findHost()->getDisplayString().setTagArg("i", 1, "green");
+
+    char s[100] = "";
+    std::snprintf(s, 100, "Myself: %s, Message kind: %d, Id: %d", this->getFullName(), wsm->getKind());
+    std::system(("notify-send \"onWSM wala\" \"" + std::string(s) + "\"").c_str());
 
     if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getDemoData(), 9999);
     if (!sentMessage) {
@@ -94,6 +100,8 @@ void TraCIDemo11p::handlePositionUpdate(cObject* obj)
     // stopped for for at least 10s?
     if (mobility->getSpeed() < 1) {
         if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
+            std::system("notify-send \"Gaadi ruki hui hai\" \"From Veins\"");
+
             findHost()->getDisplayString().setTagArg("i", 1, "red");
             sentMessage = true;
 

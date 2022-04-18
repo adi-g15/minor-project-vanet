@@ -21,6 +21,8 @@
 //
 
 #include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
+#include <cstdlib>
+#include <string>
 
 using namespace veins;
 
@@ -291,12 +293,20 @@ void DemoBaseApplLayer::stopService()
 
 void DemoBaseApplLayer::sendDown(cMessage* msg)
 {
+    char s[100] = "";
+    std::snprintf(s, 100, "Myself: %s, Message kind: %d, Id: %d, DisplayString: %s", this->getFullName(), msg->getKind(), msg->getId(), msg->getDisplayString());
+    std::system(("notify-send \"sendDown\" \"" + std::string(s) + "\"").c_str());
+
     checkAndTrackPacket(msg);
     BaseApplLayer::sendDown(msg);
 }
 
 void DemoBaseApplLayer::sendDelayedDown(cMessage* msg, simtime_t delay)
 {
+    char s[100] = "";
+    std::snprintf(s, 100, "Myself: %s, Message kind: %d, Id: %d, DisplayString: %s", this->getFullName(), msg->getKind(), msg->getId(), msg->getDisplayString());
+    std::system(("notify-send \"sendDelayedDown\" \"" + std::string(s) + "\"").c_str());
+
     checkAndTrackPacket(msg);
     BaseApplLayer::sendDelayedDown(msg, delay);
 }
