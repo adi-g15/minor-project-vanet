@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
+#include <veins/modules/application/ieee80211p/MinorBaseApplLayer.h>
 
 namespace veins {
 
@@ -36,11 +36,11 @@ namespace veins {
  * on the CCH.
  *
  * @author Christoph Sommer : initial DemoApp
- * @author David Eckhoff : rewriting, moving functionality to DemoBaseApplLayer, adding WSA
+ * @author David Eckhoff : rewriting, moving functionality to MinorBaseApplLayer, adding WSA
  *
  */
 
-class VEINS_API TraCIMinor11p : public DemoBaseApplLayer {
+class VEINS_API TraCIMinor11p : public MinorBaseApplLayer {
 public:
     void initialize(int stage) override;
 

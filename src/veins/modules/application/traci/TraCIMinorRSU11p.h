@@ -22,14 +22,14 @@
 
 #pragma once
 
-#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
+#include <veins/modules/application/ieee80211p/MinorBaseApplLayer.h>
 
 namespace veins {
 
 /**
  * Small RSU Demo using 11p
  */
-class VEINS_API TraCIMinorRSU11p : public DemoBaseApplLayer {
+class VEINS_API TraCIMinorRSU11p : public MinorBaseApplLayer {
 protected:
     void onWSM(BaseFrame1609_4* wsm) override;
     void onWSA(DemoServiceAdvertisment* wsa) override;

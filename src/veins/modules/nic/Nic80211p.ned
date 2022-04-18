@@ -30,7 +30,7 @@ import org.car2x.veins.modules.mac.ieee80211p.Mac1609_4;
 //
 // @author David Eckhoff
 //
-// @see DemoBaseApplLayer
+// @see MinorBaseApplLayer
 // @see Mac1609_4
 // @see PhyLayer80211p
 //

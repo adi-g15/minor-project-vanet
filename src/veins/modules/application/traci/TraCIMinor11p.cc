@@ -21,8 +21,7 @@
 //
 
 #include <veins/modules/application/traci/TraCIMinor11p.h>
-#include "veins/modules/application/traci/TraCIDemo11pMessage_m.h"
-
+#include <veins/modules/application/traci/TraCIMinor11pMessage_m.h>
 #include <cstdlib>
 
 using namespace veins;
@@ -31,7 +30,7 @@ Define_Module(veins::TraCIMinor11p);
 
 void TraCIMinor11p::initialize(int stage)
 {
-    DemoBaseApplLayer::initialize(stage);
+    MinorBaseApplLayer::initialize(stage);
     if (stage == 0) {
         sentMessage = false;
         lastDroveAt = simTime();
@@ -53,7 +52,7 @@ void TraCIMinor11p::onWSA(DemoServiceAdvertisment* wsa)
 
 void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
 {
-    TraCIDemo11pMessage* wsm = check_and_cast<TraCIDemo11pMessage*>(frame);
+    TraCIMinor11pMessage* wsm = check_and_cast<TraCIMinor11pMessage*>(frame);
 
     findHost()->getDisplayString().setTagArg("i", 1, "green");
 
@@ -73,7 +72,7 @@ void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
 
 void TraCIMinor11p::handleSelfMsg(cMessage* msg)
 {
-    if (TraCIDemo11pMessage* wsm = dynamic_cast<TraCIDemo11pMessage*>(msg)) {
+    if (TraCIMinor11pMessage* wsm = dynamic_cast<TraCIMinor11pMessage*>(msg)) {
         // send this message on the service channel until the counter is 3 or higher.
         // this code only runs when channel switching is enabled
         sendDown(wsm->dup());
@@ -88,13 +87,13 @@ void TraCIMinor11p::handleSelfMsg(cMessage* msg)
         }
     }
     else {
-        DemoBaseApplLayer::handleSelfMsg(msg);
+        MinorBaseApplLayer::handleSelfMsg(msg);
     }
 }
 
 void TraCIMinor11p::handlePositionUpdate(cObject* obj)
 {
-    DemoBaseApplLayer::handlePositionUpdate(obj);
+    MinorBaseApplLayer::handlePositionUpdate(obj);
 
     // stopped for for at least 10s?
     if (mobility->getSpeed() < 1) {
@@ -104,7 +103,7 @@ void TraCIMinor11p::handlePositionUpdate(cObject* obj)
             findHost()->getDisplayString().setTagArg("i", 1, "red");
             sentMessage = true;
 
-            TraCIDemo11pMessage* wsm = new TraCIDemo11pMessage();
+            TraCIMinor11pMessage* wsm = new TraCIMinor11pMessage();
             populateWSM(wsm);
             wsm->setDemoData(mobility->getRoadId().c_str());
 

@@ -22,9 +22,9 @@
 
 #pragma once
 
+#include <veins/modules/application/ieee80211p/MinorBaseApplLayer.h>
 #include "veins/veins.h"
 
-#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
 
 using namespace omnetpp;
 
@@ -40,7 +40,7 @@ namespace veins {
  *
  */
 
-class VEINS_API MyVeinsApp : public DemoBaseApplLayer {
+class VEINS_API MyVeinsApp : public MinorBaseApplLayer {
 public:
     void initialize(int stage) override;
     void finish() override;

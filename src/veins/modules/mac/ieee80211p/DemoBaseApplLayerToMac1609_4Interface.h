@@ -29,7 +29,7 @@ namespace veins {
 
 /**
  * @brief
- * Interface between DemoBaseApplLayer Layer and Mac1609_4
+ * Interface between MinorBaseApplLayer Layer and Mac1609_4
  *
  * @author David Eckhoff
  *

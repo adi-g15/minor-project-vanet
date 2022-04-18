@@ -22,9 +22,9 @@
 
 #pragma once
 
+#include <veins/modules/application/ieee80211p/MinorBaseApplLayer.h>
 #include "veins/veins.h"
 
-#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
 #include "veins/modules/mobility/traci/TraCIMobility.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
@@ -33,7 +33,7 @@ using veins::TraCIMobility;
 
 namespace veins {
 
-class TraCITrafficLightApp : public DemoBaseApplLayer {
+class TraCITrafficLightApp : public MinorApplLayer {
 protected:
     /** @brief this function is called upon receiving a BasicSafetyMessage, also referred to as a beacon  */
     virtual void onBSM(DemoSafetyMessage* bsm);

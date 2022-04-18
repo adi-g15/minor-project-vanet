@@ -28,15 +28,15 @@ import org.car2x.veins.base.modules.IBaseApplLayer;
 //
 // @author David Eckhoff
 //
-// @see DemoBaseApplLayer
+// @see MinorBaseApplLayer
 // @see Nic80211p
 // @see Mac1609_4
 // @see PhyLayer80211p
 //
-simple DemoBaseApplLayer like IBaseApplLayer
+simple MinorBaseApplLayer like IBaseApplLayer
 {
     parameters:
-        @class(veins::DemoBaseApplLayer);
+        @class(veins::MinorBaseApplLayer);
         int headerLength = default(88bit) @unit(bit); //header length of the application
 
         bool sendBeacons = default(true); //tell the applayer to periodically send beacons

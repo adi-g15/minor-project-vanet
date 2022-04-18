@@ -28,7 +28,7 @@ Define_Module(veins::MyVeinsApp);
 
 void MyVeinsApp::initialize(int stage)
 {
-    DemoBaseApplLayer::initialize(stage);
+    MinorBaseApplLayer::initialize(stage);
     if (stage == 0) {
         // Initializing members and pointers of your application goes here
         EV << "Initializing " << par("appName").stringValue() << std::endl;
@@ -40,7 +40,7 @@ void MyVeinsApp::initialize(int stage)
 
 void MyVeinsApp::finish()
 {
-    DemoBaseApplLayer::finish();
+    MinorBaseApplLayer::finish();
     // statistics recording goes here
 }
 
@@ -64,14 +64,14 @@ void MyVeinsApp::onWSA(DemoServiceAdvertisment* wsa)
 
 void MyVeinsApp::handleSelfMsg(cMessage* msg)
 {
-    DemoBaseApplLayer::handleSelfMsg(msg);
+    MinorBaseApplLayer::handleSelfMsg(msg);
     // this method is for self messages (mostly timers)
-    // it is important to call the DemoBaseApplLayer function for BSM and WSM transmission
+    // it is important to call the MinorBaseApplLayer function for BSM and WSM transmission
 }
 
 void MyVeinsApp::handlePositionUpdate(cObject* obj)
 {
-    DemoBaseApplLayer::handlePositionUpdate(obj);
+    MinorBaseApplLayer::handlePositionUpdate(obj);
     // the vehicle has moved. Code that reacts to new positions goes here.
     // member variables such as currentPosition and currentSpeed are updated in the parent class
 }

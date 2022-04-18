@@ -57,7 +57,7 @@ namespace veins {
  *
  * @ingroup macLayer
  *
- * @see DemoBaseApplLayer
+ * @see MinorBaseApplLayer
  * @see Mac1609_4
  * @see PhyLayer80211p
  * @see Decider80211p

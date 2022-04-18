@@ -50,15 +50,15 @@ using veins::TraCIMobilityAccess;
  *
  * @ingroup applLayer
  *
- * @see DemoBaseApplLayer
+ * @see MinorBaseApplLayer
  * @see Mac1609_4
  * @see PhyLayer80211p
  * @see Decider80211p
  */
-class VEINS_API DemoBaseApplLayer : public BaseApplLayer {
+class VEINS_API MinorBaseApplLayer : public BaseApplLayer {
 
 public:
-    ~DemoBaseApplLayer() override;
+    ~MinorBaseApplLayer() override;
     void initialize(int stage) override;
     void finish() override;
 

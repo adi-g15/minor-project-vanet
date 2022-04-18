@@ -30,7 +30,7 @@ import org.car2x.veins.base.modules.BaseMacLayer;
 // @author Christopher Saloman
 // @author David Eckhoff : rewrote complete model
 //
-// @see DemoBaseApplLayer
+// @see MinorBaseApplLayer
 // @see Nic80211p
 // @see PhyLayer80211p
 //

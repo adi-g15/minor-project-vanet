@@ -20,8 +20,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
+#include <veins/modules/application/traci/TraCIMinor11pMessage_m.h>
 #include <veins/modules/application/traci/TraCIMinorRSU11p.h>
-#include "veins/modules/application/traci/TraCIDemo11pMessage_m.h"
 
 using namespace veins;
 
@@ -37,7 +37,7 @@ void TraCIMinorRSU11p::onWSA(DemoServiceAdvertisment* wsa)
 
 void TraCIMinorRSU11p::onWSM(BaseFrame1609_4* frame)
 {
-    TraCIDemo11pMessage* wsm = check_and_cast<TraCIDemo11pMessage*>(frame);
+    TraCIMinor11pMessage* wsm = check_and_cast<TraCIMinor11pMessage*>(frame);
 
     std::system("notify-send \"RSU Update\" \"RSU ko message mila\"");
 
