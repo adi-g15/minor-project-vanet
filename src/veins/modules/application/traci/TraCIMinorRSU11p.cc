@@ -42,5 +42,9 @@ void TraCIMinorRSU11p::onWSM(BaseFrame1609_4* frame)
     std::system("notify-send \"RSU Update\" \"RSU ko message mila\"");
 
     // this rsu repeats the received traffic update in 2 seconds plus some random delay
-    sendDelayedDown(wsm->dup(), 2 + uniform(0.01, 0.2));
+    auto* new_wsm = wsm->dup();
+    new_wsm->setDemoData("rsu: ye naya wala");
+    sendDown(new_wsm);
+    // @adig delay agar hata de to kaaphi jaldi reply dikha deta hai, demo ke time delay hata dena chahe to
+    // sendDelayedDown(wsm->dup(), 2 + uniform(0.01, 0.2));
 }

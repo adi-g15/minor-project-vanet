@@ -23,6 +23,7 @@
 #include <veins/modules/application/traci/TraCIMinor11p.h>
 #include <veins/modules/application/traci/TraCIMinor11pMessage_m.h>
 #include <cstdlib>
+#include <string_view>
 
 using namespace veins;
 
@@ -57,10 +58,33 @@ void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
     findHost()->getDisplayString().setTagArg("i", 1, "green");
 
     char s[100] = "";
-    std::snprintf(s, 100, "Myself: %s, Message kind: %d, Id: %d", this->getFullName(), wsm->getKind());
+    std::snprintf(s, 100, "Myself: %s, Message kind: %d", this->getFullName(), wsm->getKind());
     std::system(("notify-send \"onWSM wala\" \"" + std::string(s) + "\"").c_str());
 
-    if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getDemoData(), 9999);
+    auto msg_data = wsm->getDemoData();
+
+    auto starts_with = [](const char* msg, const char* prefix) -> bool {
+        auto sz = strlen(msg);
+        auto prefix_sz = strlen(prefix);
+
+        if(sz < prefix_sz) { return false; }
+
+        for(int i=0; i<prefix_sz; ++i) {
+            if(msg[i] != prefix[i]) { return false; }
+        }
+
+        return true;
+    };
+
+    if(starts_with(msg_data, "rsu:")) {
+        std::snprintf(s, 100, "RSU wala message: %s", msg_data);
+        std::system(("notify-send \"Broadcast from RSU\" \"" + std::string(s) + "\"").c_str());
+
+    } else if (mobility->getRoadId()[0] != ':') {
+        // @adig - By default, RSU is replying with a new lane for the vehicle to take
+        traciVehicle->changeRoute(msg_data, 9999);
+    }
+
     if (!sentMessage) {
         sentMessage = true;
         // repeat the received traffic update once in 2 seconds plus some random delay
