@@ -21,6 +21,7 @@ namespace veins {
 class VEINS_API TraCIMinor11p : public MinorBaseApplLayer {
 public:
     void initialize(int stage) override;
+    TraCIMinor11p();
 
 protected:
     simtime_t lastDroveAt;

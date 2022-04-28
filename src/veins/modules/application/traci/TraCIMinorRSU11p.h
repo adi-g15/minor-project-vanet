@@ -13,7 +13,7 @@ class VEINS_API TraCIMinorRSU11p : public MinorBaseApplLayer {
     std::vector<IdType> blacklisted_cars;
 
     IdType rsu_id;
-    static IdType id_counter = 0;
+    static inline IdType id_counter = 0;
 
 public:
     TraCIMinorRSU11p();

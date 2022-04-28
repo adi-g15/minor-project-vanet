@@ -7,6 +7,14 @@ using namespace veins;
 
 Define_Module(veins::TraCIMinor11p);
 
+TraCIMinor11p::TraCIMinor11p() {
+    static int count = 1;
+
+    char msg[100];
+    snprintf(msg, 100, "notify-send \"Car #%d\"", count++);
+    std::system(msg);
+}
+
 void TraCIMinor11p::initialize(int stage)
 {
     MinorBaseApplLayer::initialize(stage);
@@ -37,7 +45,7 @@ void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
 
     char s[100] = "";
     std::snprintf(s, 100, "Myself: %s, Message kind: %d", this->getFullName(), wsm->getKind());
-    std::system(("notify-send \"onWSM wala\" \"" + std::string(s) + "\"").c_str());
+//    std::system(("notify-send \"onWSM wala\" \"" + std::string(s) + "\"").c_str());
 
     auto msg_data = wsm->getDemoData();
 
