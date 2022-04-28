@@ -4,22 +4,38 @@
 #include <string_view>
 #include <random>
 
-// libxcrypt
-#include <crypt.h>
+// hash ke liye library use kar rha hu
+#include "hash/khash.h"
 
 using namespace veins;
 
 Define_Module(veins::TraCIMinor11p);
 
+std::string get_hash(int private_key) {
+    char tmpstr[100];
+    snprintf(tmpstr, 100, "%x", khash64_fn(private_key, 0));
+
+    return tmpstr;
+}
+
 TraCIMinor11p::TraCIMinor11p():
-        private_key(rand()),
-        public_key(std::to_string(crpyt).c_str(), "sha")
+        public_key(get_hash(private_key)),
+        private_key(rand())
 {
     static int count = 1;
 
+/*
+    cModule* rsuModule = getParentModule()->getSubmodule("rsu");
+    if( rsuModule == nullptr ) {
+        std::system("notify-send \"Invalid hai bhai !\"");
+    } else {
+        std::system("notify-send \"Mil gaya bhai !\"");
+    }
+*/
+
     char msg[100];
     snprintf(msg, 100, "notify-send \"Car #%d\"", count++);
-    std::system(msg);
+//    std::system(msg);
 }
 
 void TraCIMinor11p::initialize(int stage)
