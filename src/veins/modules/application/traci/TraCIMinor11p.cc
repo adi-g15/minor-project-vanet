@@ -2,12 +2,19 @@
 #include <veins/modules/application/traci/TraCIMinor11pMessage_m.h>
 #include <cstdlib>
 #include <string_view>
+#include <random>
+
+// libxcrypt
+#include <crypt.h>
 
 using namespace veins;
 
 Define_Module(veins::TraCIMinor11p);
 
-TraCIMinor11p::TraCIMinor11p() {
+TraCIMinor11p::TraCIMinor11p():
+        private_key(rand()),
+        public_key(std::to_string(crpyt).c_str(), "sha")
+{
     static int count = 1;
 
     char msg[100];

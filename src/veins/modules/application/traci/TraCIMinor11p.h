@@ -18,10 +18,17 @@ namespace veins {
  *
  */
 
+using IdType = int;
+
 class VEINS_API TraCIMinor11p : public MinorBaseApplLayer {
 public:
+    const std::string public_key;
     void initialize(int stage) override;
     TraCIMinor11p();
+
+private:
+    const int private_key;
+    std::vector<IdType> agreed_cars;
 
 protected:
     simtime_t lastDroveAt;
