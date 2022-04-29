@@ -131,7 +131,9 @@ void TraCIMinor11p::handlePositionUpdate(cObject* obj)
     // stopped for for at least 10s?
     if (mobility->getSpeed() < 1) {
         if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
-            std::system("notify-send \"Gaadi ruki hui hai\" \"From Veins\"");
+            char cmd[100];
+            snprintf(cmd, 100, "notify-send \"An accident has happened\" \"Car ID: #%s\"", this->public_key.c_str());
+            std::system(cmd);
 
             findHost()->getDisplayString().setTagArg("i", 1, "red");
             sentMessage = true;
