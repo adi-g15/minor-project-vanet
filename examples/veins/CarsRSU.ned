@@ -6,6 +6,6 @@ network CarsRSU extends Scenario
     @display("bgb=619,416");
     submodules:
         rsu[1]: RSU {
-            @display("p=201,205;i=veins/sign/yellowdiamond;is=vs");
+            @display("p=512,325;i=veins/sign/yellowdiamond;is=vs");
         }
 }

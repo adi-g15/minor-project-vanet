@@ -18,7 +18,7 @@ namespace veins {
  *
  */
 
-using IdType = int;
+using IdType = std::string;
 
 class VEINS_API TraCIMinor11p : public MinorBaseApplLayer {
 public:

@@ -24,6 +24,12 @@ TraCIMinor11p::TraCIMinor11p():
 {
     static int count = 1;
 
+/*    auto* module = getSimulation()->componentv;
+
+    char cmd[100];
+    snprintf(cmd, 100, "notify-send \"Parent: %p\"", (void*)module);
+    std::system(cmd);
+*/
 /*
     cModule* rsuModule = getParentModule()->getSubmodule("rsu");
     if( rsuModule == nullptr ) {
@@ -70,7 +76,7 @@ void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
     std::snprintf(s, 100, "Myself: %s, Message kind: %d", this->getFullName(), wsm->getKind());
 //    std::system(("notify-send \"onWSM wala\" \"" + std::string(s) + "\"").c_str());
 
-    auto msg_data = wsm->getDemoData();
+    auto msg_data = wsm->getsentData();
 
     auto starts_with = [](const char* msg, const char* prefix) -> bool {
         auto sz = strlen(msg);
@@ -89,6 +95,8 @@ void TraCIMinor11p::onWSM(BaseFrame1609_4* frame)
         std::snprintf(s, 100, "RSU wala message: %s", msg_data);
         std::system(("notify-send \"Broadcast from RSU\" \"" + std::string(s) + "\"").c_str());
 
+    } else if (starts_with(msg_data, "#")) {
+        // SKIP, rsu should handle this
     } else if (mobility->getRoadId()[0] != ':') {
         // @adig - By default, RSU is replying with a new lane for the vehicle to take
         traciVehicle->changeRoute(msg_data, 9999);
@@ -140,7 +148,10 @@ void TraCIMinor11p::handlePositionUpdate(cObject* obj)
 
             TraCIMinor11pMessage* wsm = new TraCIMinor11pMessage();
             populateWSM(wsm);
-            wsm->setDemoData(mobility->getRoadId().c_str());
+
+            char msg[100];
+            snprintf(msg, 100, "#%s:lane=%s", this->public_key.c_str(), mobility->getRoadId().c_str());
+            wsm->setsentData(msg);
 
             // host is standing still due to crash
             if (dataOnSch) {

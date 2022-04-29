@@ -5,7 +5,7 @@ import veins.base.utils.SimpleAddress;
 namespace veins;
 
 packet TraCIMinor11pMessage extends BaseFrame1609_4 {
-    string demoData;
+    string sentData;
     LAddress::L2Type senderAddress = -1;
     int serial = 0;
 }
