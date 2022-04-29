@@ -22,7 +22,7 @@ void TraCIMinorRSU11p::onWSM(BaseFrame1609_4* frame)
     TraCIMinor11pMessage* wsm = check_and_cast<TraCIMinor11pMessage*>(frame);
 
     char cmd[100];
-    snprintf(cmd, 100, "notify-send \"RSU Update\" \"RSU received a message from #\"", wsm->getsentData());
+    snprintf(cmd, 100, "notify-send \"RSU Update\" \"RSU received a message from #%s\"", wsm->getsentData());
     std::system(cmd);
 
     auto starts_with = [](const char* msg, const char* prefix) -> bool {

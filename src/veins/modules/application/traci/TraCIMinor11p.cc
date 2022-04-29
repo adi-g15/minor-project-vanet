@@ -23,7 +23,6 @@ TraCIMinor11p::TraCIMinor11p():
         private_key(rand())
 {
     static int count = 1;
-
 /*    auto* module = getSimulation()->componentv;
 
     char cmd[100];
@@ -51,6 +50,17 @@ void TraCIMinor11p::initialize(int stage)
         sentMessage = false;
         lastDroveAt = simTime();
         currentSubscribedServiceId = -1;
+    }
+
+    if( this->sendBeacons == true ) {
+        TraCIMinor11pMessage* wsm = new TraCIMinor11pMessage();
+        populateWSM(wsm);
+
+        char msg[100];
+        snprintf(msg, 100, "#%s:lane=%s", this->public_key.c_str(), mobility->getRoadId().c_str());
+        wsm->setsentData(msg);
+
+        sendDown(wsm);
     }
 }
 
@@ -150,7 +160,7 @@ void TraCIMinor11p::handlePositionUpdate(cObject* obj)
             populateWSM(wsm);
 
             char msg[100];
-            snprintf(msg, 100, "#%s:lane=%s", this->public_key.c_str(), mobility->getRoadId().c_str());
+            snprintf(msg, 100, "#%s:lane=%s:in-accident", this->public_key.c_str(), mobility->getRoadId().c_str());
             wsm->setsentData(msg);
 
             // host is standing still due to crash
@@ -160,7 +170,6 @@ void TraCIMinor11p::handlePositionUpdate(cObject* obj)
                 scheduleAt(computeAsynchronousSendingTime(1, ChannelType::service), wsm);
             }
             else {
-                // send right away on CCH, because channel switching is disabled
                 sendDown(wsm);
             }
         }
