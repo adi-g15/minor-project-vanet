@@ -4,16 +4,16 @@
 #include <veins/modules/application/traci/TraCIMinor11pMessage_m.h>
 
 // @minor We could make it more complex
-using IdType = int;
+using IdType = std::string;
 
 namespace veins {
 
 class VEINS_API TraCIMinorRSU11p : public MinorBaseApplLayer {
-    std::vector<IdType> known_cars;
-    std::vector<IdType> blacklisted_cars;
+    std::set<IdType> known_cars;
+    std::set<IdType> blacklisted_cars;
 
-    IdType rsu_id;
-    static inline IdType id_counter = 0;
+    int rsu_id;
+    static inline int id_counter = 0;
 
 public:
     TraCIMinorRSU11p();

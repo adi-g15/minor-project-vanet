@@ -47,14 +47,25 @@ void TraCIMinorRSU11p::onWSM(BaseFrame1609_4* frame)
         auto car_id = msg_str.substr(0, it);
 
         char s[150];
-        std::snprintf(s, 100, "notify-send \" Sent Car Id: %s\"", car_id.c_str());
-        std::system(s);
+
+        /* std::map::insert or std::set::insert, both return a pair, in which the second
+         * is a boolean telling if insertion took place, i want this message to be shown
+         * once only */
+        if( this->known_cars.insert(car_id).second == true ) {
+            std::snprintf(s, 150, "notify-send \"Approved Car: #%s\"", car_id.c_str());
+
+            std::system(s);
+        }
+
+//        char s[150];
+//        std::snprintf(s, 100, "notify-send \" Sent Car Id: %s\"", car_id.c_str());
+//        std::system(s);
     }
 
     std::string car_list = "[";
     int i=0;
     for(const auto& car_id: this->known_cars) {
-        car_list = car_list + std::to_string(car_id);
+        car_list = car_list + car_id;
 
         if(i == this->known_cars.size()-1) {
             car_list.push_back(']');
